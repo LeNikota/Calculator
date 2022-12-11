@@ -90,6 +90,7 @@ function addDot(){
         return;
     }
     currentOperand.textContent += '.';
+    clearable = false;
 }
 
 function equal(){
