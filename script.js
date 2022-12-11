@@ -19,7 +19,7 @@ const divide = (a, b) => a / b;
 
 let currentOperand = 0;
 let previousOperand = null;
-let clearable = true; //Makes the resulting value removable if user presses equal and than inputs a digit
+let clearable = true; // Makes the value removable if the user pushes any digit
 
 
 function operate(operator) {
@@ -46,7 +46,7 @@ function operate(operator) {
 
             break;
         case 'AC':
-
+            clearAllDisplay();
             break;
     }
 }
@@ -59,4 +59,12 @@ function updateDisplay(digit){
     else{
         currentOperandDisplay.textContent += digit;
     }
+}
+
+function clearAllDisplay(){
+    currentOperand = 0;
+    previousOperand = null;
+    currentOperandDisplay.textContent = '0';
+    previousOperandDisplay.textContent = '';
+    clearable = true;
 }
