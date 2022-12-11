@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Roboto&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+
+:root{
+    --body-background: #f6f6f6;
+    --calculator-display: #000000;
+    --calculator-buttons: #151515;
+    --calculator-buttons-hover: #222222;
+    --calculator-buttons-focus: #ff2263;
+}
+
+body{
+    margin: 0;
+    height: 100vh;
+    background-color: var(--body-background);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Lato', sans-serif;
+}
+
+.calculator{
+    width: 350px;
+    height: 580px;
+    border-radius: 5px;
+    box-shadow: black 0 0 40px -20px;
+}
+
+.screen{
+    height: 20%;
+    background-color: var(--calculator-display);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 8px;
+    padding: 0 20px 12px 20px;
+}
+
+.current-operand, button{
+    color: white;
+}
+
+.current-operand{
+    font-size: 2rem;
+}
+
+.previous-operand{
+    color: #b1b1b1;
+}
+
+.buttons-container{
+    display: grid;
+    grid-template-rows: repeat(5,1fr);
+    grid-template-columns: repeat(4,1fr);
+    height: 80%;
+}
+
+button{
+    background-color: var(--calculator-buttons);
+    border: unset;
+    cursor: pointer;
+    font-size: 1.6rem;
+    font-family: 'Lato', sans-serif;
+    transition: color 0.1s, background-color 0.1s, box-shadow 0.1s;
+}
+
+.operator{
+    color: #9c9c9c;
+}
+
+#all-clear{
+    grid-column-start: span 2;
+}
+
+
+#addition{
+    grid-row-start: span 2;
+}
+
+button:hover{
+    background-color: var(--calculator-buttons-hover);
+}
+
+button:active{
+    background-color: var(--calculator-buttons-focus);
+    color: white;
+    box-shadow: var(--calculator-buttons-focus) 0 0 40px -10px;
+    z-index: 1;
+}
+
+@media (max-height:560px) {
+    body{
+        height: auto;
+        padding: 50px 0;
+    }
+}
