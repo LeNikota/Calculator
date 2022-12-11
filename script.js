@@ -2,6 +2,7 @@ const digits = document.querySelectorAll('.digit');
 const operator = document.querySelectorAll('.operator');
 const currentOperandDisplay = document.querySelector('.current-operand');
 const previousOperandDisplay = document.querySelector('.previous-operand');
+const displayOperator = document.querySelector('.display-operator');
 
 
 digits.forEach(e => {
@@ -11,9 +12,8 @@ operator.forEach(e => {
     e.addEventListener('click', e => operate(e.target.textContent));
 });
 
-let currentOperand = 0;
-let previousOperand = null;
 let clearable = true; // Makes the value removable if the user pushes any digit
+//let clearable = true;
 
 
 function operate(operator) {
@@ -45,7 +45,14 @@ function operate(operator) {
     }
 }
 
-const add = (a, b) => a + b;
+const add = () => {
+    if(previousOperandDisplay !== null){
+        currentOperandDisplay.textContent = +currentOperandDisplay.textContent + +previousOperandDisplay.textContent;
+    }
+    previousOperandDisplay.textContent = currentOperandDisplay.textContent;
+    displayOperator.textContent = '+';
+};
+
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
@@ -61,10 +68,9 @@ function updateDisplay(digit) {
 }
 
 function clearAllDisplay() {
-    currentOperand = 0;
-    previousOperand = null;
     currentOperandDisplay.textContent = '0';
     previousOperandDisplay.textContent = '';
+    displayOperator.textContent = '';
     clearable = true;
 }
 

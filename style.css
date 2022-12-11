@@ -50,7 +50,7 @@ body{
     font-size: 2rem;
 }
 
-.previous-operand{
+.previous-operand, .display-operator{
     color: #b1b1b1;
 }
 
