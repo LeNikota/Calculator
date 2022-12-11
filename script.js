@@ -34,8 +34,8 @@ function operate(operator) {
 
             break;
         case '.':
+            addDot(); // decimalify :)
             break;
-
         case 'C':
             deleteTheLastDigit();
             break;
@@ -69,11 +69,19 @@ function clearAllDisplay() {
 }
 
 function deleteTheLastDigit() {
-    if (currentOperandDisplay.textContent.length === 1) {
+    if (currentOperandDisplay.textContent.length === 1 || currentOperandDisplay.textContent === '0.') {
         currentOperandDisplay.textContent = '0';
         clearable = true;
     }
     else {
         currentOperandDisplay.textContent = currentOperandDisplay.textContent.slice(0, -1);
     }
+}
+
+function addDot(){
+    if(currentOperandDisplay.textContent.includes('.')){
+        return;
+    }
+    currentOperandDisplay.textContent += '.';
+    clearable = false;
 }
