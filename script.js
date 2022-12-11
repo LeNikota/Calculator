@@ -1,7 +1,7 @@
 const digits = document.querySelectorAll('.digit');
 const operator = document.querySelectorAll('.operator');
-const currentOperandDisplay = document.querySelector('.current-operand');
-const previousOperandDisplay = document.querySelector('.previous-operand');
+const currentOperand = document.querySelector('.current-operand');
+const previousOperand = document.querySelector('.previous-operand');
 const displayOperator = document.querySelector('.display-operator');
 
 
@@ -46,10 +46,10 @@ function operate(operator) {
 }
 
 const add = () => {
-    if(previousOperandDisplay !== null){
-        currentOperandDisplay.textContent = +currentOperandDisplay.textContent + +previousOperandDisplay.textContent;
+    if(previousOperand !== null){
+        currentOperand.textContent = +currentOperand.textContent + +previousOperand.textContent;
     }
-    previousOperandDisplay.textContent = currentOperandDisplay.textContent;
+    previousOperand.textContent = currentOperand.textContent;
     displayOperator.textContent = '+';
 };
 
@@ -59,35 +59,35 @@ const divide = (a, b) => a / b;
 
 function updateDisplay(digit) {
     if (clearable) {
-        currentOperandDisplay.textContent = digit;
+        currentOperand.textContent = digit;
         clearable = false;
     }
     else {
-        currentOperandDisplay.textContent += digit;
+        currentOperand.textContent += digit;
     }
 }
 
 function clearAllDisplay() {
-    currentOperandDisplay.textContent = '0';
-    previousOperandDisplay.textContent = '';
+    currentOperand.textContent = '0';
+    previousOperand.textContent = '';
     displayOperator.textContent = '';
     clearable = true;
 }
 
 function deleteTheLastDigit() {
-    if (currentOperandDisplay.textContent.length === 1 || currentOperandDisplay.textContent === '0.') {
-        currentOperandDisplay.textContent = '0';
+    if (currentOperand.textContent.length === 1 || currentOperand.textContent === '0.') {
+        currentOperand.textContent = '0';
         clearable = true;
     }
     else {
-        currentOperandDisplay.textContent = currentOperandDisplay.textContent.slice(0, -1);
+        currentOperand.textContent = currentOperand.textContent.slice(0, -1);
     }
 }
 
 function addDot(){
-    if(currentOperandDisplay.textContent.includes('.')){
+    if(currentOperand.textContent.includes('.')){
         return;
     }
-    currentOperandDisplay.textContent += '.';
+    currentOperand.textContent += '.';
     clearable = false;
 }
