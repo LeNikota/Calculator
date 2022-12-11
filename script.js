@@ -11,12 +11,6 @@ operator.forEach(e => {
     e.addEventListener('click', e => operate(e.target.textContent));
 });
 
-
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
-
 let currentOperand = 0;
 let previousOperand = null;
 let clearable = true; // Makes the value removable if the user pushes any digit
@@ -43,7 +37,7 @@ function operate(operator) {
             break;
 
         case 'C':
-
+            deleteTheLastDigit();
             break;
         case 'AC':
             clearAllDisplay();
@@ -51,20 +45,35 @@ function operate(operator) {
     }
 }
 
-function updateDisplay(digit){
-    if(clearable){
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+const multiply = (a, b) => a * b;
+const divide = (a, b) => a / b;
+
+function updateDisplay(digit) {
+    if (clearable) {
         currentOperandDisplay.textContent = digit;
         clearable = false;
     }
-    else{
+    else {
         currentOperandDisplay.textContent += digit;
     }
 }
 
-function clearAllDisplay(){
+function clearAllDisplay() {
     currentOperand = 0;
     previousOperand = null;
     currentOperandDisplay.textContent = '0';
     previousOperandDisplay.textContent = '';
     clearable = true;
+}
+
+function deleteTheLastDigit() {
+    if (currentOperandDisplay.textContent.length === 1) {
+        currentOperandDisplay.textContent = '0';
+        clearable = true;
+    }
+    else {
+        currentOperandDisplay.textContent = currentOperandDisplay.textContent.slice(0, -1);
+    }
 }
