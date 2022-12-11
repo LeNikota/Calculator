@@ -12,8 +12,8 @@ operator.forEach(e => {
     e.addEventListener('click', e => operate(e.target.textContent));
 });
 
+
 let clearable = true; // Makes the value removable if the user pushes any digit
-//let clearable = true;
 
 
 function operate(operator) {
@@ -31,7 +31,7 @@ function operate(operator) {
             divide();
             break;
         case '=':
-
+            equal();
             break;
         case '.':
             addDot(); // decimalify :)
@@ -46,11 +46,14 @@ function operate(operator) {
 }
 
 const add = () => {
-    if(previousOperand !== null){
-        currentOperand.textContent = +currentOperand.textContent + +previousOperand.textContent;
+    if(previousOperand.textContent !== ''){
+        previousOperand.textContent = +currentOperand.textContent + +previousOperand.textContent;
+    }else {
+        previousOperand.textContent = currentOperand.textContent;
+        displayOperator.textContent = '+';
     }
-    previousOperand.textContent = currentOperand.textContent;
-    displayOperator.textContent = '+';
+    currentOperand.textContent = 0;
+    clearable = true;
 };
 
 const subtract = (a, b) => a - b;
@@ -58,7 +61,7 @@ const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
 function updateDisplay(digit) {
-    if (clearable) {
+    if (clearable || currentOperand.textContent[0] === '0' && currentOperand.textContent.length === 1) {
         currentOperand.textContent = digit;
         clearable = false;
     }
@@ -71,13 +74,11 @@ function clearAllDisplay() {
     currentOperand.textContent = '0';
     previousOperand.textContent = '';
     displayOperator.textContent = '';
-    clearable = true;
 }
 
 function deleteTheLastDigit() {
     if (currentOperand.textContent.length === 1 || currentOperand.textContent === '0.') {
         currentOperand.textContent = '0';
-        clearable = true;
     }
     else {
         currentOperand.textContent = currentOperand.textContent.slice(0, -1);
@@ -89,5 +90,14 @@ function addDot(){
         return;
     }
     currentOperand.textContent += '.';
-    clearable = false;
+}
+
+function equal(){
+    if(previousOperand.textContent === ''){
+        return;
+    }
+    operate(displayOperator.textContent);
+    currentOperand.textContent = previousOperand.textContent;
+    previousOperand.textContent = '';
+    displayOperator.textContent = '';
 }
