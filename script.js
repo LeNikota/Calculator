@@ -1,5 +1,7 @@
 const digits = document.querySelectorAll('.digit');
 const operator = document.querySelectorAll('.operator');
+const currentOperandDisplay = document.querySelector('.current-operand');
+const previousOperandDisplay = document.querySelector('.previous-operand');
 
 
 digits.forEach(e => {
@@ -17,6 +19,7 @@ const divide = (a, b) => a / b;
 
 let currentOperand = 0;
 let previousOperand = null;
+let clearable = true; //Makes the resulting value removable if user presses equal and than inputs a digit
 
 
 function operate(operator) {
@@ -49,5 +52,11 @@ function operate(operator) {
 }
 
 function updateDisplay(digit){
-
+    if(clearable){
+        currentOperandDisplay.textContent = digit;
+        clearable = false;
+    }
+    else{
+        currentOperandDisplay.textContent += digit;
+    }
 }
