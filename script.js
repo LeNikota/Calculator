@@ -21,7 +21,7 @@ function operate(operator, checkOperatorChange = true) {
         changeOperator(operator)
         return;
     };
-    if(currentOperand.textContent.match(/\D+/)){
+    if(currentOperand.textContent.includes('ERROR')){
         clearAllDisplay();
         return;
     }
@@ -98,7 +98,7 @@ const divide = () => {
 }
 
 function updateDisplay(digit) {
-    if(currentOperand.textContent.length > 16){
+    if(currentOperand.textContent.length > 15){
         return;
     }
     if (clearable || currentOperand.textContent[0] === '0' && currentOperand.textContent.length === 1) {
@@ -154,7 +154,7 @@ function equal(){
 function changeOperator(operator){
     if(operator !== displayOperator.textContent && operator.match(/[-+x÷]/) && displayOperator.textContent !== ''){
         operate(displayOperator.textContent, false);
-        if(currentOperand.textContent.match(/\D+/)){
+        if(currentOperand.textContent.includes('ERROR')){
             return;
         }
         displayOperator.textContent = operator;
