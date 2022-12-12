@@ -89,7 +89,7 @@ button:hover, button:focus{
     outline: none;
 }
 
-button:active{
+button:active, .btn-clicked{
     background-color: var(--calculator-buttons-focus);
     color: white;
     box-shadow: var(--calculator-buttons-focus) 0 0 40px -10px;

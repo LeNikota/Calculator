@@ -13,6 +13,7 @@ operator.forEach(e => {
 });
 document.addEventListener('keydown', e => {
     let pressedKey = e.key;
+    applyEffect(pressedKey);
     if(pressedKey.match(/\d/)){
         appendDigit(pressedKey);
     }
@@ -180,7 +181,15 @@ function changeOperator(operator){
     }
 }
 
-function pressEffect(pressedKey){
-    const 
-    document.querySelector()
+function applyEffect(pressedBtn){ 
+    const btn = [...digits, ...operator].find(e => e.textContent === pressedBtn);
+    if(!btn){
+        return;
+    }
+    if(btn.classList.contains('btn-clicked')){
+        btn.classList.remove('btn-clicked');
+        return;
+    }
+    btn.classList.add('btn-clicked');
+    btn.addEventListener('transitionend', e => e.target.classList.remove('btn-clicked'));
 }
