@@ -13,12 +13,13 @@ operator.forEach(e => {
 });
 document.addEventListener('keydown', e => {
     let pressedKey = e.key;
-    applyEffect(pressedKey);
     if(pressedKey.match(/\d/)){
+        applyEffect(pressedKey);
         appendDigit(pressedKey);
     }
     if(pressedKey.match(/[-+/x*=]|Backspace|Enter/)){
-        operate(operatorTable[pressedKey])
+        applyEffect(operatorTable[pressedKey]);
+        operate(operatorTable[pressedKey]);
     }
 });
 
@@ -182,7 +183,7 @@ function changeOperator(operator){
 }
 
 function applyEffect(pressedBtn){ 
-    const btn = [...digits, ...operator].find(e => e.textContent === operatorTable[pressedBtn]);
+    const btn = [...digits, ...operator].find(e => e.textContent === pressedBtn);
     if(!btn){
         return;
     }
