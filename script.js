@@ -179,3 +179,8 @@ function changeOperator(operator){
         operate(operator, false);
     }
 }
+
+function pressEffect(pressedKey){
+    const 
+    document.querySelector()
+}
