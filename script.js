@@ -39,7 +39,7 @@ function operate(operator, checkOperatorChange = true) {
         return;
     };
     if(currentOperand.textContent.includes('ERROR')){
-        clearAllDisplay();
+        clearDisplay();
         return;
     }
     switch (operator) {
@@ -65,7 +65,7 @@ function operate(operator, checkOperatorChange = true) {
             deleteTheLastDigit();
             break;
         case 'AC':
-            clearAllDisplay();
+            clearDisplay();
             break;
     }
 }
@@ -103,7 +103,7 @@ const multiply = () => {
 const divide = () => {
     if(previousOperand.textContent !== ''){
         if(currentOperand.textContent === '0'){
-            clearAllDisplay(true);
+            clearDisplay(true);
             return;
         }
         previousOperand.textContent = previousOperand.textContent / currentOperand.textContent;
@@ -127,7 +127,7 @@ function appendDigit(digit) {
     }
 }
 
-function clearAllDisplay(error) {
+function clearDisplay(error) {
     currentOperand.textContent = '0';
     previousOperand.textContent = '';
     displayOperator.textContent = '';
@@ -159,7 +159,7 @@ function equal(){
         return;
     }
     if(displayOperator.textContent === '÷' && currentOperand.textContent === '0'){
-        clearAllDisplay(true);
+        clearDisplay(true);
         return;
     }
     operate(displayOperator.textContent);
