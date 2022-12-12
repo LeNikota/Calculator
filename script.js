@@ -6,15 +6,32 @@ const displayOperator = document.querySelector('.display-operator');
 
 
 digits.forEach(e => {
-    e.addEventListener('click', e => updateDisplay(e.target.textContent));
+    e.addEventListener('click', e => appendDigit(e.target.textContent));
 })
 operator.forEach(e => {
     e.addEventListener('click', e => operate(e.target.textContent));
 });
-
+document.addEventListener('keydown', e => {
+    let pressedKey = e.key;
+    if(pressedKey.match(/\d/)){
+        appendDigit(pressedKey);
+    }
+    if(pressedKey.match(/[-+/x*=]|Backspace|Enter/)){
+        operate(operatorTable[pressedKey])
+    }
+});
 
 let clearable = true; // Makes the value removable if the user pushes any digit
-
+const operatorTable = {
+    '+': '+',
+    '-': '-',
+    '*': 'x',
+    'x': 'x',
+    '/': '÷',
+    '=': '=',
+    'Enter': '=',
+    'Backspace': 'C'
+}
 
 function operate(operator, checkOperatorChange = true) {
     if(checkOperatorChange){
@@ -97,7 +114,7 @@ const divide = () => {
     currentOperand.textContent = 0;
 }
 
-function updateDisplay(digit) {
+function appendDigit(digit) {
     if(currentOperand.textContent.length > 15){
         return;
     }
