@@ -16,7 +16,15 @@ operator.forEach(e => {
 let clearable = true; // Makes the value removable if the user pushes any digit
 
 
-function operate(operator) {
+function operate(operator, checkOperatorChange = true) {
+    if(checkOperatorChange){
+        changeOperator(operator)
+        return;
+    };
+    if(currentOperand.textContent.match(/\D+/)){
+        clearAllDisplay();
+        return;
+    }
     switch (operator) {
         case '+':
             add();
@@ -53,14 +61,46 @@ const add = () => {
         displayOperator.textContent = '+';
     }
     currentOperand.textContent = 0;
-    clearable = true;
-};
+}
 
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
+const subtract = () => {
+    if(previousOperand.textContent !== ''){
+        previousOperand.textContent = previousOperand.textContent - currentOperand.textContent;
+    }else {
+        previousOperand.textContent = currentOperand.textContent;
+        displayOperator.textContent = '-';
+    }
+    currentOperand.textContent = 0;
+}
+
+const multiply = () => {
+    if(previousOperand.textContent !== ''){
+        previousOperand.textContent = previousOperand.textContent * currentOperand.textContent;
+    }else {
+        previousOperand.textContent = currentOperand.textContent;
+        displayOperator.textContent = 'x';
+    }
+    currentOperand.textContent = 0;
+}
+
+const divide = () => {
+    if(previousOperand.textContent !== ''){
+        if(currentOperand.textContent === '0'){
+            clearAllDisplay(true);
+            return;
+        }
+        previousOperand.textContent = previousOperand.textContent / currentOperand.textContent;
+    }else {
+        previousOperand.textContent = currentOperand.textContent;
+        displayOperator.textContent = '÷';
+    }
+    currentOperand.textContent = 0;
+}
 
 function updateDisplay(digit) {
+    if(currentOperand.textContent.length > 16){
+        return;
+    }
     if (clearable || currentOperand.textContent[0] === '0' && currentOperand.textContent.length === 1) {
         currentOperand.textContent = digit;
         clearable = false;
@@ -70,10 +110,14 @@ function updateDisplay(digit) {
     }
 }
 
-function clearAllDisplay() {
+function clearAllDisplay(error) {
     currentOperand.textContent = '0';
     previousOperand.textContent = '';
     displayOperator.textContent = '';
+    if(error){
+        currentOperand.textContent = 'ERROR';
+        clearable = true;
+    }
 }
 
 function deleteTheLastDigit() {
@@ -97,8 +141,24 @@ function equal(){
     if(previousOperand.textContent === ''){
         return;
     }
+    if(displayOperator.textContent === '÷' && currentOperand.textContent === '0'){
+        clearAllDisplay(true);
+        return;
+    }
     operate(displayOperator.textContent);
     currentOperand.textContent = previousOperand.textContent;
     previousOperand.textContent = '';
     displayOperator.textContent = '';
+}
+
+function changeOperator(operator){
+    if(operator !== displayOperator.textContent && operator.match(/[-+x÷]/) && displayOperator.textContent !== ''){
+        operate(displayOperator.textContent, false);
+        if(currentOperand.textContent.match(/\D+/)){
+            return;
+        }
+        displayOperator.textContent = operator;
+    }else{
+        operate(operator, false);
+    }
 }
