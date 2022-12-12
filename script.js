@@ -17,7 +17,7 @@ document.addEventListener('keydown', e => {
         applyEffect(pressedKey);
         appendDigit(pressedKey);
     }
-    if(pressedKey.match(/[-+/x*=]|Backspace|Enter/)){
+    if(pressedKey.match(/[-+/x*=.]|Backspace|Enter/)){
         applyEffect(operatorTable[pressedKey]);
         operate(operatorTable[pressedKey]);
     }
@@ -31,6 +31,7 @@ const operatorTable = {
     'x': 'x',
     '/': '÷',
     '=': '=',
+    '.': '.',
     'Enter': '=',
     'Backspace': 'C'
 }
@@ -184,9 +185,6 @@ function changeOperator(operator){
 
 function applyEffect(pressedBtn){ 
     const btn = [...digits, ...operator].find(e => e.textContent === pressedBtn);
-    if(!btn){
-        return;
-    }
     if(btn.classList.contains('btn-clicked')){
         btn.classList.remove('btn-clicked');
         return;

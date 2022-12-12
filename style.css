@@ -60,6 +60,7 @@ body{
     grid-template-rows: repeat(5,1fr);
     grid-template-columns: repeat(4,1fr);
     height: 80%;
+    user-select: none;
 }
 
 button{
