@@ -182,7 +182,7 @@ function changeOperator(operator){
 }
 
 function applyEffect(pressedBtn){ 
-    const btn = [...digits, ...operator].find(e => e.textContent === pressedBtn);
+    const btn = [...digits, ...operator].find(e => e.textContent === operatorTable[pressedBtn]);
     if(!btn){
         return;
     }
